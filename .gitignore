@@ -1,0 +1,50 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore PHPStorm settings
+/.idea/
+
+# Ignore composer lock if you prefer not to use it (optional)
+composer.lock
+
+# Ignore PHP's compiled files
+*.phar
+*.log
+*.out
+
+# Ignore database configuration files (sensitive information)
+config/database.php
+.env
+
+# Ignore MySQL dump files (backups)
+*.sql
+
+# Ignore vendor directory if not using Composer
+/vendor/
+
+# Ignore node_modules if you use front-end dependencies
+node_modules/
+
+# Ignore temporary or session files
+*.session
+*.cache
+*.tmp
+
+# Ignore build directory
+/build/
+
+# Ignore log files
+*.log
+*.sql
+
+
+# Ignore cache files
+*.cache
+sample
