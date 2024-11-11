@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
   <title>Document</title>
 </head>
 
@@ -75,50 +75,53 @@
         }
       }
     }
-
-    if ($result) {
-      echo "Data has been saved!";
-    } else {
-      echo "Gagal to save data!!";
-      // why error stack trace
-      // print on log file
-      error_log($conn->error);
-    }
-  }
   ?>
-  <style>
-    body {
-      font-family: 'Courier New', Courier, monospace;
-    }
-  </style>
-
-  <table>
-    <tr style="background-color: #ccc;">
-      <th>no</th>
-      <th>id</th>
-      <th>title</th>
-      <th>link</th>
-      <th>publisher</th>
-      <th>content</th>
-      <th>author</th>
-    <tr>
-
+    <section class="info">
       <?php
-      $a = 1;
-      foreach ($xml as $row) {
+      if ($result) {
       ?>
-    <tr>
-      <td><?php echo $a++; ?></td>
-      <td><?php echo $row->id; ?></td>
-      <td><?php echo $row->title; ?></td>
-      <td><?php echo $row->link; ?></td>
-      <td><?php echo $row->published; ?></td>
-      <td><?php echo $row->content; ?></td>
-      <td><?php echo $row->author; ?></td>
+        <h1>Data berhasil disimpan!</h1>
+      <?php
+      } else {
+      ?>
+        <h1 class="error-text">Data gagal disimpan!</h1>
     <?php
+        // why error stack trace
+        // print on log file
+        error_log($conn->error);
       }
+    }
     ?>
-  </table>
+    <a href="form_upload.php">Kembali ke form input link</a>
+    </section>
+
+    <table>
+      <tr>
+        <th>no</th>
+        <th>id</th>
+        <th>title</th>
+        <th>link</th>
+        <th>publisher</th>
+        <th>content</th>
+        <th>author</th>
+      <tr>
+
+        <?php
+        $a = 1;
+        foreach ($xml as $row) {
+        ?>
+      <tr>
+        <td><?php echo $a++; ?></td>
+        <td><?php echo $row->id; ?></td>
+        <td><?php echo $row->title; ?></td>
+        <td><?php echo $row->link; ?></td>
+        <td><?php echo $row->published; ?></td>
+        <td><?php echo $row->content; ?></td>
+        <td><?php echo $row->author; ?></td>
+      <?php
+        }
+      ?>
+    </table>
 
 </body>
 

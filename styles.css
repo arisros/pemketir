@@ -1,4 +1,54 @@
 body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 1rem;
+}
+
+body.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
   background: gray;
   color: white;
+}
+
+.form input, .form button {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+.form button {
+  background: rgb(39, 205, 39);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  border-radius: 0.25rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+table td,
+table th {
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+table th {
+  background-color: #ccc
+}
+.info h1 {
+  margin: 0;
+}
+.info {
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
+.error-text {
+  color: red;
+  font-weight: bold;
 }
