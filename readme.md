@@ -1,9 +1,9 @@
 # pemketir - pertemuan 4
 
 ## prerequisites
-- php 8.3.13 (my local)
+- php 8.3.13 (mylocal)
 - mysql (8.3.0)
-- terminal (unix base 😛) or you can use wsl 
+- terminal
 
 ### setup alert
 https://www.google.com/alerts
@@ -27,9 +27,11 @@ sesuai dalam doc materi
   - galert_entry
   - kategori (unused by now)
 
-
+login db
+```
+mysql -u {USERNAME_DB} -p {PASSWORD_DB}
+```
 database
-
 ```
 CREATE DATABASE db_pemketir;
 ```
