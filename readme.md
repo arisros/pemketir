@@ -1,9 +1,11 @@
 # pemketir - pertemuan 4
+- https://github.com/arisros/pemketir
 
 ## prerequisites
 - php 8.3.13 (mylocal)
 - mysql (8.3.0)
 - terminal
+- [mycli](https://github.com/dbcli/mycli) to work with mysql
 
 ### setup alert
 https://www.google.com/alerts
@@ -82,3 +84,10 @@ CREATE TABLE kategori (
 php -S localhost:{port}
 ```
 
+![web form upload](screenshot__web_form.png)
+
+![result](screenshot__web_result.png)
+![result](screenshot__web_result_2.png)
+
+![table galert_data](screenshot__table_galert_data.png)
+![table galert_entry](screenshot__table_galert_entry.png)
