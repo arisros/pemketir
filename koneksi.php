@@ -4,8 +4,10 @@ include("libs/env.php");
 $host = getenv("DB_HOST");
 $user = getenv("DB_USER");
 $pass = getenv("DB_PASS");
+$port = getenv("DB_PORT");
 $dbName = getenv("DB_NAME");
-$conn = mysqli_connect($host, $user, $pass);
+$dbSocket = getenv("DB_SOCKET");
+$conn = mysqli_connect($host, $user, null, $dbName, intval($port), $dbSocket);
 
 if (!$conn) {
   die("failed connect mysql" . mysqli_connect_error());

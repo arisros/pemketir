@@ -15,6 +15,11 @@
     <input name="link" id="file" placeholder="https://google.com/alerts/feeds/....">
     <button type="submit">Upload</button>
   </form>
+
+  <form action="preprocessing.php" method="GET">
+    <h1>Preprocessing</h1>
+    <button type="submit">Preprocessing</button>
+  </form>
 </body>
 
 </html>
