@@ -4,10 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php include 'bootstrap.php'; ?>
   <title>Processing</title>
 </head>
 
 <body>
+  <?php include 'utils/button_back.php'; ?>
+
   <?php
   include 'koneksi.php';
   include 'stopword.php';
@@ -37,7 +40,7 @@
     echo "Data tidak ditemukan";
   } else {
   ?>
-    <table>
+    <table class="table table-bordered table-striped">
       <tr>
         <th>ID</th>
         <th>Content</th>
@@ -83,42 +86,43 @@
         // Tokenisasi
         $tokenisasi = preg_split('/\s+/', $stemming);
         $tokenisasi = implode(' ', $tokenisasi);
-      }
+
 
       ?>
-      <tr bg-color="#ddd">
-        <td><?php echo $id; ?></td>
-        <td><?php echo $content; ?></td>
-        <td><?php echo $cf; ?></td>
-        <td><?php echo $simbol; ?></td>
-        <td><?php echo $slangword; ?></td>
-        <td><?php echo $stopword; ?></td>
-        <td><?php echo $stemming; ?></td>
-        <td><?php echo $tokenisasi; ?></td>
+        <tr bg-color="#ddd">
+          <td><?php echo $id; ?></td>
+          <td><?php echo $content; ?></td>
+          <td><?php echo $cf; ?></td>
+          <td><?php echo $simbol; ?></td>
+          <td><?php echo $slangword; ?></td>
+          <td><?php echo $stopword; ?></td>
+          <td><?php echo $stemming; ?></td>
+          <td><?php echo $tokenisasi; ?></td>
 
-      </tr>
+        </tr>
     <?php
 
-    $sql = "SELECT * FROM preprocessing where entry_id='$id'";
-    $result1 = $conn->query($sql);
+        $sql = "SELECT * FROM preprocessing where entry_id='$id'";
+        $result1 = $conn->query($sql);
 
-    if ($result1->num_rows == 0) {
-      $q = "INSERT INTO preprocessing (entry_id, p_cf, p_simbol, p_tokenisasi, p_sword, p_stopword, p_stemming, data_bersih) VALUES ('$id', '$cf', '$simbol', '$tokenisasi', '$slangword', '$stopword', '$stemming', '$stemming')";
+        if ($result1->num_rows == 0) {
+          $q = "INSERT INTO preprocessing (entry_id, p_cf, p_simbol, p_tokenisasi, p_sword, p_stopword, p_stemming, data_bersih) VALUES ('$id', '$cf', '$simbol', '$tokenisasi', '$slangword', '$stopword', '$stemming', '$stemming')";
 
-      $result1 = $conn->query($q);
-    } else {
-      $q = "UPDATE preprocessing set p_cf='$cf', p_simbol='$simbol', p_tokenisasi='$tokenisasi', p_sword='$slangword', p_stopword='$stopword', p_stemming='$stemming', data_bersih='$stemming' where entry_id='$id'";
+          $result1 = $conn->query($q);
+        } else {
+          $q = "UPDATE preprocessing set p_cf='$cf', p_simbol='$simbol', p_tokenisasi='$tokenisasi', p_sword='$slangword', p_stopword='$stopword', p_stemming='$stemming', data_bersih='$stemming' where entry_id='$id'";
 
-      $result1 = $conn->query($q);
+          $result1 = $conn->query($q);
+        }
+      }
+
+      // Attempt to read property "num_rows" on true 
+      if (!$result1) {
+        echo "Preprocessing data gagal";
+      } else {
+        echo "Preprocessing data berhasil";
+      }
     }
-
-    // Attempt to read property "num_rows" on true 
-    if (!$result1) {
-      echo "Preprocessing data gagal";
-    } else {
-      echo "Preprocessing data berhasil";
-    }
-  }
     ?>
     </table>
 </body>

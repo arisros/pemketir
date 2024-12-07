@@ -11,6 +11,7 @@ body.form {
   height: 100vh;
   background: gray;
   color: white;
+  row-gap: 1rem;
 }
 
 .form input, .form button {

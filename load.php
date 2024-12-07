@@ -5,10 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <?php include 'bootstrap.php'; ?>
   <title>Document</title>
 </head>
 
 <body>
+
+
   <?php
   include_once 'koneksi.php';
   include_once 'xml_to_array.php';
@@ -92,7 +95,7 @@
       }
     }
     ?>
-    <a href="form_upload.php">Kembali ke form input link</a>
+    <?php include 'utils/button_back.php'; ?>
     </section>
 
     <table>
