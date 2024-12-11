@@ -13,8 +13,8 @@
   <?php include 'utils/button_back.php'; ?>
 
   <?php
-  include 'koneksi.php';
-  include 'stopword.php';
+  include 'libs/koneksi.php';
+  include 'libs/stopword.php';
 
   $sql = "SELECT * FROM galert_data where length(galert_id)!=0";
   $result = $conn->query($sql);
@@ -110,7 +110,7 @@
       echo "Data tidak ditemukan";
     } else {
     ?>
-      <table class="" table table-bordered table-striped table-hover>
+      <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
             <td colspan="3">

@@ -17,8 +17,8 @@
 
   <?php
 
-  include "koneksi.php";
-  include "fungsi.php";
+  include "libs/koneksi.php";
+  include "libs/fungsi.php";
 
   $sql = "SELECT id_kategori FROM kategori";
   $result = $conn->query($sql);
@@ -61,7 +61,6 @@
       $i = 1;
       $totK = 0;
       while ($d = mysqli_fetch_array($result)) {
-        // while ($d = mysql_fetch_array($result)) {
         $id = $d['id_kategori'];
         $jumlK = getJmlKat($conn, $id);
         $jumlA = getJmlAll($conn); // typo id
@@ -81,38 +80,31 @@
 
           $result2 = mysqli_query($conn, $q);
         }
-      }
-
       ?>
-
-      <tr bgcolor="#FFFF">
-
-        <td>
-          <?php echo $i; ?>
-        </td>
-        <td>
-          <?php echo $nmKategori; ?>
-        </td>
-        <td>
-          <?php echo $jumlK; ?>
-        <td>
-          <?php echo $jumlA; ?>
-        </td>
-        <td>
-          <?php echo $nilai; ?>
-        </td>
-      </tr>
-    <?php
-    $i++;
-  }
-    ?>
-
+        <tr bgcolor="#FFFF">
+          <td>
+            <?php echo $i; ?>
+          </td>
+          <td>
+            <?php echo $nmKategori; ?>
+          </td>
+          <td>
+            <?php echo $jumlK; ?>
+          <td>
+            <?php echo $jumlA; ?>
+          </td>
+          <td>
+            <?php echo $nilai; ?>
+          </td>
+        </tr>
+      <?php
+        $i++;
+      }
+      ?>
     </table>
-    <?php
-    // }
-
-    ?>
-
+  <?php
+  }
+  ?>
 </body>
 
 </html>

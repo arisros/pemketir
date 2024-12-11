@@ -10,7 +10,7 @@ function getJum($conn, $sql)
 
 function getJmlKat($conn, $id_kat)
 {
-  $sql = "SELECT * FROM kategori where id_kategori='$id_kat'";
+  $sql = "SELECT * FROM preprocessing where id_kategori='$id_kat'";
   $jum = getJum($conn, $sql);
   return $jum;
 }

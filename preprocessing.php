@@ -12,8 +12,8 @@
   <?php include 'utils/button_back.php'; ?>
 
   <?php
-  include 'koneksi.php';
-  include 'stopword.php';
+  include 'libs/koneksi.php';
+  include 'libs/stopword.php';
 
   require_once __DIR__ . '/vendor/autoload.php';
 

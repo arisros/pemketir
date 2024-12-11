@@ -1,11 +1,11 @@
-# pemketir - pertemuan 4
+# pemketir - sentiment analysis
 - https://github.com/arisros/pemketir
 
 ## prerequisites
 - php 8.3.13 (mylocal)
 - mysql (8.3.0)
 - terminal
-- [mycli](https://github.com/dbcli/mycli) to work with mysql
+- [mycli](screenshots/https://github.com/dbcli/mycli) to work with mysql
 
 ### setup alert
 https://www.google.com/alerts
@@ -102,6 +102,16 @@ PRIMARY KEY (entry_id)
 );
 ```
 
+table `P_Data`
+```
+CREATE TABLE P_Data (
+kata VARCHAR(100) NOT NULL,
+id_kategori Int(11) NOT NULL,
+jml_data Int(11) NULL DEFAULT 0,
+nilai float(10,10) NULL DEFAULT 0
+);
+```
+
 inject slang to `slangword` table (please change with yours)
 ```
 LOAD DATA INFILE './pemketir/resources/slang.csv'
@@ -122,13 +132,13 @@ ex: /usr/pemketir/resources/slang.csv
 php -S localhost:{port}
 ```
 
-![web form upload](screenshot__web_form.png)
+![web form upload](screenshots/screenshot__web_form.png)
 
-![result](screenshot__web_result.png)
-![result](screenshot__web_result_2.png)
+![result](screenshots/screenshot__web_result.png)
+![result](screenshots/screenshot__web_result_2.png)
 
-![table galert_data](screenshot__table_galert_data.png)
-![table galert_entry](screenshot__table_galert_entry.png)
+![table galert_data](screenshots/screenshot__table_galert_data.png)
+![table galert_entry](screenshots/screenshot__table_galert_entry.png)
 
 **Preprocessing**
-![table galert_entry](screenshot__result_preprocessing.png)
+![table galert_entry](screenshots/screenshot__result_preprocessing.png)

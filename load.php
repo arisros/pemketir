@@ -13,8 +13,8 @@
 
 
   <?php
-  include_once 'koneksi.php';
-  include_once 'xml_to_array.php';
+  include_once 'libs/koneksi.php';
+  include_once 'libs/xml_to_array.php';
 
   $link = $_GET['link'];
   // memuat file xml dari link
