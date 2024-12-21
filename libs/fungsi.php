@@ -29,3 +29,21 @@ function getKat($conn, $id_kat)
   $d = mysqli_fetch_row($rs);
   return $d[0];
 }
+
+
+// Fungsi untuk menghitung skor sentimen
+function calculateSentimentScore($text, $positiveWords, $negativeWords)
+{
+  $words = explode(' ', strtolower($text));
+  $score = 0;
+
+  foreach ($words as $word) {
+    if (in_array($word, $positiveWords)) {
+      $score += 1;
+    } elseif (in_array($word, $negativeWords)) {
+      $score -= 1;
+    }
+  }
+
+  return $score;
+}

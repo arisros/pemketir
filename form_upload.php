@@ -29,6 +29,11 @@
       <button type="submit">proses labelisasi</button>
     </form>
 
+    <h3>Sentiment Analysis</h3>
+    <form action="sentiment_process.php" method="GET">
+      <button type="submit">proses sentimen Analysis</button>
+    </form>
+
     <h3>Tahap Klasifikasi</h3>
     <form action="klasifikasi.php" method="GET">
       <button type="submit">proses klasifikasi</button>
@@ -36,7 +41,7 @@
 
     <h3>Tahap Pengujian</h3>
     <form action="klasifikasi.php" method="GET">
-      <button type="submit">input data uji</button>
+      <a href="input_data_test.php">Input Data Test</a>
       <button type="submit">proses klasifikasi data uji</button>
     </form>
   </section>
