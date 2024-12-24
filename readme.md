@@ -125,6 +125,25 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (k_tbaku,k_baku);
 ```
+
+```
+CREATE TABLE P_Kategori (
+id_kategori Int(11) NOT NULL,
+jml_data Int(11) NULL DEFAULT 0,
+nilai float(10,10) NULL DEFAULT 0,
+tmp_nilai float(10,10) NULL,
+PRIMARY KEY (id_kategori)
+);
+```
+
+```
+CREATE TABLE classify (
+data_bersih TINYTEXT NOT NULL,
+id_actual VARCHAR(3) NULL,
+id_predicted VARCHAR(3) NULL
+)
+```
+
 ***notes: tested with fullpath***
 ex: /usr/pemketir/resources/slang.csv
 

@@ -19,11 +19,10 @@
 </style>
 
 <div class="back_button">
-  <button onclick="goBack()">
-    << Kembali Ke Halaman Utama</button>
-      <script>
-        function goBack() {
-          window.history.back();
-        }
-      </script>
+  <button type="button" onclick="goBack()" class="btn btn-warning btn-sm"><span class="bi-chevron-double-left"></span>&nbsp;Kembali ke halaman utama</button>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
 </div>
