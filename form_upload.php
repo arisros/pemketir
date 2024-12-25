@@ -12,28 +12,28 @@ ob_start();
   <h3>Tahap Pengumpulan Data</h3>
   <form action="load.php" method="GET">
     <input name="link" class="form-control" id="file" placeholder="https://google.com/alerts/feeds/....">
-    <button type="submit" class="btn btn-primary btn-sm"><span class="bi-upload"></span>&nbsp;Upload</button>
+    <button type="submit" class="btn btn-primary"><span class="bi-upload"></span>&nbsp;Upload</button>
   </form>
 
 
   <h3>Tahap Preprocessing</h3>
   <form action="preprocessing.php" method="GET">
-    <button type="submit" class="btn btn-primary btn-sm"><span class="bi-gear"></span>&nbsp;Preprocessing</button>
+    <button type="submit" class="btn btn-primary"><span class="bi-gear"></span>&nbsp;Preprocessing</button>
   </form>
 
   <h3>Tahap Labelisasi</h3>
   <form action="labelisasi.php" method="GET">
-    <button type="submit" class="btn btn-primary btn-sm"><span class="bi-tag"></span>&nbsp;Proses labelisasi</button>
+    <button type="submit" class="btn btn-primary"><span class="bi-tag"></span>&nbsp;Proses labelisasi</button>
   </form>
 
   <h3>Sentiment Analysis</h3>
   <form action="sentiment_process.php" method="GET">
-    <button type="submit" class="btn btn-primary btn-sm"><span class="bi-emoji-smile"></span>&nbsp;Proses Sentimen Analysis</button>
+    <button type="submit" class="btn btn-primary"><span class="bi-emoji-smile"></span>&nbsp;Proses Sentimen Analysis</button>
   </form>
 
   <h3>Tahap Klasifikasi</h3>
   <form action="klasifikasi.php" method="GET">
-    <button type="submit" class="btn btn-primary btn-sm"><span class="bi-layers"></span>&nbsp;Proses Klasifikasi</button>
+    <button type="submit" class="btn btn-primary"><span class="bi-layers"></span>&nbsp;Proses Klasifikasi</button>
   </form>
 
   <h3>Tahap Pengujian</h3>

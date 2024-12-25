@@ -55,7 +55,7 @@ $result4 = mysqli_query($conn, $sql);
 
 <h2>Probabilitas Kriteria Data Bersih pada Kategori</h2>
 <table class="table table-bordered table-striped table-hover">
-  <thead>
+  <thead class="table-warning">
     <tr>
       <th>No</th>
       <th>Kategori</th>

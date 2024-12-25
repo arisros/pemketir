@@ -5,8 +5,6 @@ ob_start();
 include 'utils/button_back.php';
 include "libs/koneksi.php";
 include "libs/fungsi.php";
-
-// Mendapatkan data kategori
 $sql = "SELECT id_kategori FROM kategori";
 $result = $conn->query($sql);
 
@@ -16,7 +14,7 @@ if ($result->num_rows == 0) {
 ?>
   <h2>Menghitung Probabilitas Setiap Kategori dan Sentimen</h2>
   <table class="table table-bordered table-striped table-hover">
-    <thead>
+    <thead class="table-warning">
       <tr bgcolor="#CCC">
         <th style="width: 5%;">No.</th>
         <th style="width: 15%;">Kategori</th>
@@ -30,7 +28,6 @@ if ($result->num_rows == 0) {
       <?php
       $i = 1;
 
-      // Mendapatkan semua kategori dan menghitung probabilitas kategori
       while ($d = mysqli_fetch_array($result)) {
         $id = $d['id_kategori'];
         $jumlK = getJmlKat($conn, $id); // jumlah dokumen pada kategori
@@ -39,7 +36,6 @@ if ($result->num_rows == 0) {
         $nmKategori = getKat($conn, $id);
         $nilaiKategori = $jumlK / $jumlA;
 
-        // Mengambil data dan sentimen yang sudah dilabeli
         $sqlData = "SELECT sentiment_label FROM preprocessing WHERE id_kategori = '$id'";
         $dataResult = $conn->query($sqlData);
 
@@ -50,33 +46,32 @@ if ($result->num_rows == 0) {
         while ($dataRow = mysqli_fetch_array($dataResult)) {
           $sentiment = $dataRow['sentiment_label'];
 
-          // Menghitung frekuensi masing-masing sentimen
           if ($sentiment == 'positive') $countPositive++;
           elseif ($sentiment == 'negative') $countNegative++;
           else $countNeutral++;
         }
 
-        // Probabilitas sentimen
         $totalSentimen = $countPositive + $countNegative + $countNeutral;
-        $probPositive = $totalSentimen > 0 ? $countPositive / $totalSentimen : 0;
-        $probNegative = $totalSentimen > 0 ? $countNegative / $totalSentimen : 0;
-        $probNeutral = $totalSentimen > 0 ? $countNeutral / $totalSentimen : 0;
+        if ($totalSentimen > 0) {
+          $probPositive = $countPositive / $totalSentimen;
+          $probNegative = $countNegative / $totalSentimen;
+          $probNeutral = $countNeutral / $totalSentimen;
+        } else {
+          $probPositive = $probNegative = $probNeutral = 0; // or default to 0
+        }
 
-        // Simpan data kategori ke P_Kategori jika belum ada
         $sql = "SELECT * FROM P_Kategori WHERE id_kategori='$id'";
         $result2 = $conn->query($sql);
 
         if ($result2->num_rows == 0) {
-          // Jika data kategori belum ada, insert data baru
-          $q = "INSERT INTO P_Kategori (id_kategori, jml_data, nilai, prob_positive, prob_negative, prob_neutral) 
-              VALUES ('$id', '$jumlK', '$nilaiKategori', '$probPositive', '$probNegative', '$probNeutral')";
+          $q = "INSERT INTO P_Kategori (id_kategori, jml_data, nilai, tmp_nilai, prob_positive, prob_negative, prob_neutral) 
+                          VALUES ('$id', '$jumlK', '$nilaiKategori', null, '$probPositive', '$probNegative', '$probNeutral')";
           $conn->query($q);
         } else {
-          // Jika data kategori sudah ada, update data yang sudah ada
           $q = "UPDATE P_Kategori 
-              SET jml_data='$jumlK', nilai='$nilaiKategori', 
-                  prob_positive='$probPositive', prob_negative='$probNegative', prob_neutral='$probNeutral' 
-              WHERE id_kategori='$id'";
+                          SET jml_data='$jumlK', nilai='$nilaiKategori', 
+                              prob_positive='$probPositive', prob_negative='$probNegative', prob_neutral='$probNeutral' 
+                          WHERE id_kategori='$id'";
           $conn->query($q);
         }
       ?>

@@ -22,7 +22,7 @@
   <button type="button" onclick="goBack()" class="btn btn-warning btn-sm"><span class="bi-chevron-double-left"></span>&nbsp;Kembali ke halaman utama</button>
   <script>
     function goBack() {
-      window.history.back();
+      window.location.href = "index.php";
     }
   </script>
 </div>

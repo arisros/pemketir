@@ -96,9 +96,6 @@ if ($result->num_rows == 0) {
       $stopword = strip_tags($stopword);
       $stemming = strip_tags($stemming);
       $tokenisasi = strip_tags($tokenisasi);
-
-
-
       $tokenisasi = str_replace('&nbsp;', ' ', $tokenisasi);
 
     ?>

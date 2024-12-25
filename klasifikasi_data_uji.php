@@ -7,7 +7,7 @@ require_once "libs/koneksi.php";
 require_once "libs/fungsi.php";
 
 // Proses Klasifikasi Data Uji berdasarkan Tabel 'classify'
-$sql1 = "SELECT * FROM classify WHERE id_actual IS NULL"; // Ambil data yang belum diprediksi
+$sql1 = "SELECT * FROM classify WHERE id_predicted IS NULL"; // Ambil data yang belum diprediksi
 $result1 = mysqli_query($conn, $sql1);
 
 if ($result1->num_rows > 0) {
@@ -52,7 +52,7 @@ if ($result1->num_rows > 0) {
       $predicted_kategori = array_keys($kategori_probs, max($kategori_probs))[0];
 
       // Update hasil klasifikasi pada tabel classify
-      $sql_update = "UPDATE classify SET id_ac = '$predicted_kategori' WHERE data_bersih = '$data_bersih'";
+      $sql_update = "UPDATE classify SET id_predicted = '$predicted_kategori' WHERE data_bersih = '$data_bersih'";
       mysqli_query($conn, $sql_update);
     }
   }

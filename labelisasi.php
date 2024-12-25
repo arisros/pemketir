@@ -9,10 +9,12 @@ ob_start();
 include 'libs/koneksi.php';
 include 'libs/stopword.php';
 
-$sql = "SELECT * FROM galert_data where length(galert_id)!=0";
+$sql = "SELECT * FROM galert_data WHERE LENGTH(galert_id) != 0";
 $result = $conn->query($sql);
 
-if ($result->num_rows == 0 || $result == false) {
+if (!$result) {
+  echo "Query error: " . $conn->error;
+} elseif ($result->num_rows == 0) {
   echo "Data tidak ditemukan";
 } else {
 ?>
@@ -20,34 +22,24 @@ if ($result->num_rows == 0 || $result == false) {
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr background="#ccc">
-        <th class="table-id-column">
-          No.
-        </th>
-        <th>
-          Title
-        </th>
+        <th class="table-id-column">No.</th>
+        <th>Title</th>
         <th>Nama Kategori</th>
-
       </tr>
     </thead>
 
     <?php
     $i = 1;
-    while ($d = mysqli_fetch_array($result)) {
-      $id = $d['galert_id'];
-      $title = $d['galert_title'];
+    while ($data = mysqli_fetch_array($result)) {
+      $id = $data['galert_id'];
+      $title = $data['galert_title'];
 
-      $stoplist = array('Google', 'Alert', ' ', '-');
+      $stoplist = ['Google', 'Alert', ' ', '-'];
       $rem_stopword = explode(' ', $title);
-      $str_data = array();
-
-      foreach ($rem_stopword as $value) {
-        if (!in_array($value, $stoplist)) {
-          $str_data[] = "" . $value;
-        }
-      }
-      $kategori = implode(" ", $str_data);
-
+      $filtered_data = array_filter($rem_stopword, function ($word) use ($stoplist) {
+        return !in_array($word, $stoplist);
+      });
+      $kategori = implode(" ", $filtered_data);
     ?>
 
       <tr background="#FFF">
@@ -57,62 +49,56 @@ if ($result->num_rows == 0 || $result == false) {
       </tr>
 
     <?php
+      $sqlKategori = "SELECT * FROM kategori WHERE nm_kategori='$kategori'";
+      $resultKategori = $conn->query($sqlKategori);
 
-      $sql = "SELECT * FROM kategori where nm_kategori='$kategori'";
-      $result1 = $conn->query($sql);
-      if ($result1->num_rows == 0) {
-        $q = "INSERT INTO kategori (nm_kategori) VALUES ('$kategori')";
-        $result = $conn->query($q);
+      if (!$resultKategori || $resultKategori->num_rows == 0) {
+        $insertKategori = "INSERT INTO kategori (nm_kategori) VALUES ('$kategori')";
+        $conn->query($insertKategori);
       }
 
-      $sql = "SELECT id_kategori FROM kategori where nm_kategori='$kategori'";
-      $result2 = $conn->query($sql);
+      $sqlKategoriId = "SELECT id_kategori FROM kategori WHERE nm_kategori='$kategori'";
+      $resultKategoriId = $conn->query($sqlKategoriId);
 
-      $d = mysqli_fetch_row($result2);
-      $id_kategori = $d[0];
+      if ($resultKategoriId && $kategoriRow = mysqli_fetch_row($resultKategoriId)) {
+        $id_kategori = $kategoriRow[0];
+        $sqlEntry = "SELECT * FROM galert_entry WHERE feed_id='$id'";
+        $resultEntry = $conn->query($sqlEntry);
 
-      $sql = "SELECT * FROM galert_entry where feed_id='$id'";
-      $result2 = $conn->query($sql);
-
-      if ($result2->num_rows > 0) {
-        $q = "UPDATE preprocessing set id_kategori='$id_kategori' where entry_id in(SELECT entry_id FROM galert_entry where feed_id='$id')";
-        $result2 = $conn->query($q);
+        if ($resultEntry && $resultEntry->num_rows > 0) {
+          $updatePreprocessing = "UPDATE preprocessing SET id_kategori='$id_kategori' WHERE entry_id IN (SELECT entry_id FROM galert_entry WHERE feed_id='$id')";
+          $conn->query($updatePreprocessing);
+        }
       }
-
-      $i = $i + 1;
+      $i++;
     }
     ?>
   </table>
   <?php
-
-  if ($result2) {
-
+  if ($conn->affected_rows > 0) {
   ?>
     <div class="alert alert-success" role="alert">
       Data berhasil di labelisasi
     </div>
   <?php
   } else {
-    echo "Data gagal di labelisasi";
   ?>
     <div class="alert alert-danger" role="alert">
       Data gagal di labelisasi
     </div>
-<?php
+  <?php
   }
 }
 
-?>
+$sqlPreprocessing = "SELECT * FROM preprocessing WHERE LENGTH(entry_id) != 0";
+$resultPreprocessing = $conn->query($sqlPreprocessing);
 
-<?php
-
-$i = 1;
-$sql = "SELECT * FROM preprocessing where length(entry_id)!=0";
-$result = $conn->query($sql);
-if ($result->num_rows == 0) {
+if (!$resultPreprocessing) {
+  echo "Query error: " . $conn->error;
+} elseif ($resultPreprocessing->num_rows == 0) {
   echo "Data tidak ditemukan";
 } else {
-?>
+  ?>
   <h2>Daftar Labelisasi Data</h2>
   <table class="table table-bordered table-striped table-hover">
     <thead>
@@ -120,30 +106,33 @@ if ($result->num_rows == 0) {
         <th class="table-id-column">No.</th>
         <th>Data Bersih</th>
         <th style="width: 12%;">Nama Kategori</th>
+      </tr>
     </thead>
     <?php
-    while ($d = mysqli_fetch_array($result)) {
-      $data_bersih = $d["data_bersih"];
-      $id_kategori = $d["id_kategori"];
-      $sql = "SELECT nm_kategori FROM kategori where id_kategori='$id_kategori'";
-      $result2 = $conn->query($sql);
-      $d = mysqli_fetch_row($result2);
-      $nm_kategori = $d[0];
+    $i = 1;
+    while ($dataPreprocessing = mysqli_fetch_array($resultPreprocessing)) {
+      $data_bersih = $dataPreprocessing["data_bersih"];
+      $id_kategori = $dataPreprocessing["id_kategori"];
 
+      $sqlKategori = "SELECT nm_kategori FROM kategori WHERE id_kategori='$id_kategori'";
+      $resultKategori = $conn->query($sqlKategori);
+
+      if ($resultKategori && $kategoriRow = mysqli_fetch_row($resultKategori)) {
+        $nm_kategori = $kategoriRow[0];
     ?>
-      <tr background="#FFF">
-        <td class="table-id-column"><?php echo $i; ?></td>
-        <td><?php echo $data_bersih; ?></td>
-        <td style="width: 12%;"><?php echo $nm_kategori; ?></td>
-      </tr>
+        <tr background="#FFF">
+          <td class="table-id-column"><?php echo $i; ?></td>
+          <td><?php echo $data_bersih; ?></td>
+          <td style="width: 12%;"><?php echo $nm_kategori; ?></td>
+        </tr>
     <?php
-      $i = $i + 1;
+        $i++;
+      }
     }
     ?>
   </table>
 <?php
 }
-
 
 $content = ob_get_clean();
 include 'layout.php';
