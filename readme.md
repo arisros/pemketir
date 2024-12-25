@@ -154,7 +154,16 @@ ex: /usr/pemketir/resources/slang.csv
 php -S localhost:{port}
 ```
 
-![web form upload](screenshots/screenshot__web_form.png)
+![web form upload](screenshots/uas_0.png)
+![web form upload](screenshots/uas_1.png)
+![web form upload](screenshots/uas_2.png)
+![web form upload](screenshots/uas_3.png)
+![web form upload](screenshots/uas_4.png)
+![web form upload](screenshots/uas_5.png)
+![web form upload](screenshots/uas_6.png)
+![web form upload](screenshots/uas_7.png)
+![web form upload](screenshots/uas_8.png)
+
 
 ![result](screenshots/screenshot__web_result.png)
 ![result](screenshots/screenshot__web_result_2.png)
