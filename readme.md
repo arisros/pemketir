@@ -162,7 +162,6 @@ php -S localhost:{port}
 ![web form upload](screenshots/uas_5.png)
 ![web form upload](screenshots/uas_6.png)
 ![web form upload](screenshots/uas_7.png)
-![web form upload](screenshots/uas_8.png)
 
 
 ![result](screenshots/screenshot__web_result.png)
