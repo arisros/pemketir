@@ -23,17 +23,18 @@ body.form {
   row-gap: 1rem;
 }
 
-.form input, .form button {
-  margin: 0.5rem;
-  padding: 0.5rem;
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 }
-.form button {
-  /* background: rgb(39, 205, 39);
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  border-radius: 0.25rem; */
+
+.form form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 1rem;
 }
 
 .container {

@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($result_confusion_matrix)) {
 // Display the confusion matrix in a table format
 echo "<h3>Confusion Matrix</h3>";
 echo "<table class='table table-bordered table-striped'>";
-echo "<thead>
+echo "<thead class='table-warning'>
         <tr>
             <th>Actual/Predicted</th>
             <th>Politik</th>
@@ -90,7 +90,7 @@ echo "<thead>
       </thead><tbody>";
 
 foreach ($confusion_matrix as $actual => $predictions) {
-  echo "<tr><td><strong>$actual</strong></td>";
+  echo "<tr><td class='table-warning'><strong>$actual</strong></td>";
   foreach ($predictions as $predicted => $count) {
     echo "<td>$count</td>";
   }

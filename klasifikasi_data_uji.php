@@ -70,24 +70,38 @@ $result = mysqli_query($conn, $sql);
 
 <h2>Hasil Klasifikasi Data Uji</h2>
 <table class="table table-bordered table-striped table-hover">
-  <thead>
+  <thead class="table-warning">
     <tr>
       <th style="width: 5%;">No</th>
       <th>Data Bersih</th>
       <th style="width: 15%;">Kategori Aktual</th>
       <th style="width: 15%;">Kategori Prediksi</th>
+      <th style="width: 15%;">Sentiment</th>
     </tr>
   </thead>
   <tbody>
     <?php
+    $positiveWords = file('sentiment-dict/positive.txt', FILE_IGNORE_NEW_LINES);
+    $negativeWords = file('sentiment-dict/negative.txt', FILE_IGNORE_NEW_LINES);
     $no = 1;
     while ($d = mysqli_fetch_array($result)) {
+      $clean_data = $d['data_bersih'];
+      $score = calculateSentimentScore($clean_data, $positiveWords, $negativeWords);
+
+      if ($score > 0) {
+        $sentiment = 'positive';
+      } elseif ($score < 0) {
+        $sentiment = 'negative';
+      } else {
+        $sentiment = 'neutral';
+      }
     ?>
       <tr>
         <td><?php echo $no; ?></td>
         <td><?php echo htmlspecialchars($d['data_bersih']); ?></td>
         <td><?php echo htmlspecialchars($d['actual_kategori_name']); ?></td>
         <td><?php echo htmlspecialchars($d['predicted_kategori_name']); ?></td>
+        <td><?php echo $sentiment ?></td>
       </tr>
     <?php
       $no++;

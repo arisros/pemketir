@@ -49,12 +49,12 @@ $result_kategori = mysqli_query($conn, $sql_kategori);
   <h2 class="mt-5">Data Uji dan Klasifikasi</h2>
 
   <table class="table table-bordered table-striped table-hover mt-4">
-    <thead class="table-light">
+    <thead class="table-warning">
       <tr>
-        <th>No</th>
+        <th style="width: 5%;">No</th>
         <th>Data Bersih</th>
-        <th>Prediksi Kategori</th>
-        <th>Aktual Kategori</th>
+        <th style="width: 15%;">Prediksi Kategori</th>
+        <th style="width: 15%;">Aktual Kategori</th>
       </tr>
     </thead>
     <tbody>

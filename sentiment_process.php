@@ -40,7 +40,7 @@ while ($d = mysqli_fetch_array($result)) {
 
 <!-- then i need show result after scoring -->
 <table class="table table-bordered table-striped table-hover">
-  <thead>
+  <thead class="table-warning">
     <tr bgcolor="#CCC">
       <th style="width: 10%;">
         No.
