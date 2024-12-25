@@ -53,21 +53,27 @@ if ($result->num_rows == 0) {
       $id = $d['entry_id'];
       $content = $d['entry_content'];
 
-      // 1 Case Folding
-      // echo strtoupper$(content);;
-      $cf = strtolower(($content));
+      // 1. Case Folding
+      $cf = strtolower($content); // Case folding
+      // Mengganti &nbsp; dengan spasi biasa
+      $cf = str_replace('&nbsp;', ' ', $cf);
+      $cf = str_replace('&amp;', ' ', $cf);
+      $cf = str_replace('&quot;', ' ', $cf);
+      $cf = str_replace('&lt;', ' ', $cf);
+      $cf = str_replace('&gt;', ' ', $cf);
+      $cf = str_replace('<b>', ' ', $cf);
+      $cf = str_replace('</b>', ' ', $cf);
 
-      // Penghapusan Simbol-Simbol (SYmbol Removal)
+      // 2. Penghapusan Simbol-Simbol (Symbol Removal)
       $simbol = preg_replace('/[^a-zA-Z\s]/', '', $cf);
 
-      // Konversi Slangwod
-      $rem_slang = explode(' ', $simbol);
+      // 3. Konversi Slangword
       $slangword = str_replace(array_keys($arr_slang), $arr_slang, $simbol);
 
-      // Stopword Removal
-      $rem_stopword = $rem_slang; //rem_slang is already an array
+      // 4. Stopword Removal
+      $rem_slang = explode(' ', $slangword); // Slangwords sudah menjadi array
       $str_data = array();
-      foreach ($rem_stopword as $word) {
+      foreach ($rem_slang as $word) {
         if (!in_array($word, $stopwords)) {
           $str_data[] = $word;
         }
@@ -75,14 +81,25 @@ if ($result->num_rows == 0) {
 
       $stopword = implode(' ', $str_data);
 
-      // Stemming
+      // 5. Stemming
       $q1 = implode(' ', (array)$str_data);
       $stemming = $stemmer->stem($q1);
 
-      // Tokenisasi
+      // 6. Tokenisasi
       $tokenisasi = preg_split('/\s+/', $stemming);
       $tokenisasi = implode(' ', $tokenisasi);
 
+      // Membersihkan teks dari tag HTML atau entitas
+      $cf = strip_tags($cf);
+      $simbol = strip_tags($simbol);
+      $slangword = strip_tags($slangword);
+      $stopword = strip_tags($stopword);
+      $stemming = strip_tags($stemming);
+      $tokenisasi = strip_tags($tokenisasi);
+
+
+
+      $tokenisasi = str_replace('&nbsp;', ' ', $tokenisasi);
 
     ?>
       <tr>

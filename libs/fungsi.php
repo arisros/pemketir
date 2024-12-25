@@ -47,3 +47,39 @@ function calculateSentimentScore($text, $positiveWords, $negativeWords)
 
   return $score;
 }
+
+function getN($conn, $id_kat)
+{
+  $sql = "SELECT COUNT(*) FROM P_Data WHERE id_kategori = '$id_kat'";
+  $result = $conn->query($sql);
+  $row = $result->fetch_row();
+  return $row[0];  // Mengembalikan hasil hitung jumlah baris
+}
+
+function getKosakata($conn)
+{
+  $sql = "SELECT COUNT(DISTINCT kata) FROM P_Data";
+  $result = $conn->query($sql);
+  $row = $result->fetch_row();
+  return $row[0];  // Mengembalikan jumlah kata unik
+}
+function getJmlKata($conn, $kata, $id_kategori)
+{
+  $sql = "SELECT COUNT(*) AS jumlah FROM preprocessing WHERE id_kategori = '$id_kategori' AND data_bersih LIKE '% $kata %'";
+  $result = mysqli_query($conn, $sql);
+
+  if ($result) {
+    $data = mysqli_fetch_assoc($result);
+    return $data['jumlah'];
+  } else {
+    return 0; // Jika query gagal
+  }
+}
+
+function getNilaiKategori($conn, $id_kategori)
+{
+  $sql = "SELECT nilai FROM P_Kategori WHERE id_kategori = '$id_kategori'";
+  $result = mysqli_query($conn, $sql);
+  $data = mysqli_fetch_array($result);
+  return $data['nilai'];
+}

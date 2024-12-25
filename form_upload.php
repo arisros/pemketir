@@ -4,6 +4,7 @@ $title = 'Form Upload';
 ob_start();
 
 
+
 ?>
 
 <section class="form">
@@ -36,10 +37,11 @@ ob_start();
   </form>
 
   <h3>Tahap Pengujian</h3>
-  <form action="klasifikasi.php" method="GET">
-    <a href="input_data_test.php">Input Data Test</a>
-    <button type="submit">proses klasifikasi data uji</button>
-  </form>
+  <section class="btn-group" role="group">
+    <a class="btn btn-warning" href="form_data_uji.php"><span class="bi-layers"></span>&nbsp;Input Data Test</a>
+    <a class="btn btn-success" href="klasifikasi_data_uji.php"><span class="bi-graph-up"></span>&nbsp;Proses klasifikasi data uji</a>
+    <a class="btn btn-success" href="accuracy.php"><span class="bi-speedometer2"></span>&nbsp;Hasil Klasifikasi</a>
+  </section>
 </section>
 
 <?php

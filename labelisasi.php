@@ -12,7 +12,7 @@ include 'libs/stopword.php';
 $sql = "SELECT * FROM galert_data where length(galert_id)!=0";
 $result = $conn->query($sql);
 
-if ($result->num_rows == 0) {
+if ($result->num_rows == 0 || $result == false) {
   echo "Data tidak ditemukan";
 } else {
 ?>

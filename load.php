@@ -43,11 +43,11 @@ if (!$xml) {
         // seharusnya kontraknya sama dengan database dan xml
         // TODO: perlu dilakukan handling jika xml tidak sesuai dengan kontrak!
         $entry_id = $record->id;
-        $title = $record->title;
+        $title = str_replace('\'', '', $record->title);
         $link = $record->link;
         $published = $record->published;
         $update = $record->update;
-        $content = $record->content;
+        $content = str_replace('\'', '', $record->content);
         $author = $record->author;
 
         // query cari data di database berdasarkan entry_id
